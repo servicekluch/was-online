@@ -1,6 +1,6 @@
-const val secondsInMinute = 60
-const val secondsInHour = 3_600
-const val secondsInDay = 86_400
+const val SECONDS_IN_MINUTE = 60
+const val SECONDS_IN_HOUR = 3_600
+const val SECONDS_IN_DAY = 86_400
 
 fun main() {
 
@@ -9,25 +9,25 @@ fun main() {
 
     if (!userName.isBlank()) {
         print("Количество секунд с момента выхода из сети? ")
-        printText(userName, readLine()?.toInt() ?: return)
+        printText(userName, readLine()?.toUInt() ?: return)
     }
 }
 
-fun printText(userName: String, secAgo: Int) {
-    println(message = "$userName был(а) в сети ${agoToText(secAgo)}")
+fun printText(userName: String, secAgo: UInt) {
+    println(message = "$userName был(а) в сети ${agoToText(secAgo.toInt())}")
 }
 
 
 private fun agoToText(secAgo: Int): String {
 
     return when (secAgo) {
-        in 0..secondsInMinute -> "только что"
-        in secondsInMinute + 1..secondsInHour ->
-            "${secAgo / secondsInMinute} ${numDeclension(secAgo / secondsInMinute, TimeType.Minutes)} назад"
-        in secondsInHour + 1..secondsInDay  ->
-            "${secAgo / secondsInHour}  ${numDeclension(secAgo / secondsInHour, TimeType.Hours)} назад"
-        in secondsInDay + 1..2 * secondsInDay  -> "сегодня"
-        in 2 * secondsInDay  + 1..3 * secondsInDay  -> "вчера"
+        in 0..SECONDS_IN_MINUTE -> "только что"
+        in SECONDS_IN_MINUTE + 1..SECONDS_IN_HOUR ->
+            "${secAgo / SECONDS_IN_MINUTE} ${numDeclension(secAgo / SECONDS_IN_MINUTE, TimeType.Minutes)} назад"
+        in SECONDS_IN_HOUR + 1..SECONDS_IN_DAY  ->
+            "${secAgo / SECONDS_IN_HOUR}  ${numDeclension(secAgo / SECONDS_IN_HOUR, TimeType.Hours)} назад"
+        in SECONDS_IN_DAY + 1..2 * SECONDS_IN_DAY  -> "сегодня"
+        in 2 * SECONDS_IN_DAY  + 1..3 * SECONDS_IN_DAY  -> "вчера"
         else -> "давно"
     }
 }
